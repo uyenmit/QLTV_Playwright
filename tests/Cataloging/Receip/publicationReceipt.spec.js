@@ -61,8 +61,23 @@ function editpublicationReceipt() {
 
     });
 }
+
+function deletepublicationReceipt() {
+
+    test('delete publicationReceipt', async ({ page }) => {
+
+        await page.getByText('Biên mục', { exact: true }).click();
+        await page.getByRole('link', { name: 'Ấn phẩm đã biên mục' }).click();
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/admin/publicationReceiptManager');
+        await page.getByRole('row', { name: '10 STN-3 Dưới sao mẹ kể con nghe Kho sách thiếu nhi Nguyễn Vĩnh Nguyên Tiếng Việt Tranh - Ảnh 2021 Sửa Xóa' }).getByRole('button').nth(1).click();
+        await page.getByRole('tooltip').getByRole('button', { name: 'Xóa' }).click();
+        await expect(page.getByText('Xóa ấn phẩm thành công!')).toBeVisible();
+    });
+}
+
 function main() {
     beforeEach();
     editpublicationReceipt();
+    deletepublicationReceipt();
 }
 main();
