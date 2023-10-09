@@ -117,9 +117,7 @@ function addWquickly() {
     await page.getByRole('button', { name: 'Tải lên' }).click();
     // await expect(page.getByText('Thêm mới thành công 4/4 bản ghi')).toBeVisible();
     await expect(page.locator('span').filter({ hasText: 'Thêm mới thành công 4/4 bản ghi' })).toBeVisible();
-    await expect(page.getByLabel('Nhập nhanh từ file excel').getByText('Thêm mới thành công 4/4 bản ghi'))
-
-      .toBeVisible();
+    await expect(page.getByLabel('Nhập nhanh từ file excel').getByText('Thêm mới thành công 4/4 bản ghi')).toBeVisible();
     // locator('span').filter({ hasText: 'Thêm mới thành công 4/4 bản ghi' })
     // getByLabel('Nhập nhanh từ file excel').getByText('Thêm mới thành công 4/4 bản ghi')
 
