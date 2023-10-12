@@ -47,16 +47,18 @@ function addStudent() {
 
         await page.getByRole('menu').getByText('Bạn đọc').click();
         await page.getByRole('link', { name: 'Học sinh' }).click();
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/admin/studentManager');
         await page.getByRole('button', { name: 'Thêm mới' }).click();
-        //await page.getByLabel('Họ tên').click();
-        await page.getByLabel('Họ tên').fill('Trần Văn Nam');
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/admin/studentManager/addStudent');
+        await page.getByLabel('Họ tên').click();
+        await page.getByLabel('Họ tên').fill('Trần Đình Nam');
         await page.getByLabel('Số điện thoại').click();
-        await page.getByLabel('Số điện thoại').fill('0364122820');
+        await page.getByLabel('Số điện thoại').fill('0364123820');
         await page.getByPlaceholder('Chọn ngày').click();
         await page.getByPlaceholder('Chọn ngày').fill('22/06/1999');
         await page.getByText('22').click();
         await page.getByLabel('Email').click();
-        await page.getByLabel('Email').fill('trannam@gmail.com');
+        await page.getByLabel('Email').fill('trannam2@gmail.com');
         await page.getByPlaceholder('Từ năm').click();
         await page.getByText('2022').click();
         await page.getByText('2026').click();
@@ -85,10 +87,13 @@ function addSquickly() {
 
 function addSnoname() {
 
-    test('add Student', async ({ page }) => {
+    test('add Student no name', async ({ page }) => {
 
         await page.getByRole('menu').getByText('Bạn đọc').click();
         await page.getByRole('link', { name: 'Học sinh' }).click();
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/admin/studentManager');
+        await page.getByRole('button', { name: 'Thêm mới' }).click();
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/admin/studentManager/addStudent');
         await page.getByRole('button', { name: 'Thêm mới' }).click();
         await page.getByLabel('Số điện thoại').click();
         await page.getByLabel('Số điện thoại').fill('0364122820');
@@ -109,7 +114,51 @@ function addSnoname() {
     });
 }
 
+function editStudent() {
 
+    test('edit Student', async ({ page }) => {
+        await page.getByRole('menu').getByText('Bạn đọc').click();
+        await page.getByRole('link', { name: 'Học sinh' }).click();
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/admin/studentManager');
+        await page.getByRole('row', { name: '10 HS00002 Trần Uyên Phương trannam@gmail.com       0364112281 22/06/1999 2022 - 2024 Đang hoạt động 02/10/2023 02/04/2024 Sửa Xóa' }).getByRole('button').first().click();
+        await page.getByLabel('Họ tên').click();
+        await page.getByLabel('Họ tên').clear();
+        await page.getByLabel('Họ tên').fill('Trần Uyên Phương');
+        await page.getByLabel('Số điện thoại').click();
+        await page.getByLabel('Số điện thoại').clear();
+        await page.getByLabel('Số điện thoại').fill('0364112281');
+        await page.getByPlaceholder('Chọn ngày').click();
+        await page.getByPlaceholder('Chọn ngày').fill('22/06/1999');
+        await page.getByText('22').click();
+        await page.getByLabel('Email').click();
+        await page.getByLabel('Email').clear();
+        await page.getByLabel('Email').fill('trannam@gmail.com');
+        await page.getByPlaceholder('Từ năm').click();
+        await page.getByText('2022').click();
+        await page.getByText('2024').click();
+        await page.getByRole('switch').click();
+        await page.getByLabel('Mật khẩu', { exact: true }).click();
+        await page.getByLabel('Mật khẩu', { exact: true }).fill('inet@123');
+        await page.getByLabel('Nhập lại mật khẩu').click();
+        await page.getByLabel('Nhập lại mật khẩu').fill('inet@123');
+        await page.getByRole('button', { name: 'Lưu' }).click();
+        await expect(page.getByText('Cập nhật học sinh thành công!')).toBeVisible();
+
+    });
+}
+
+function deleteStudent() {
+
+    test('delete Student', async ({ page }) => {
+        await page.getByRole('menu').getByText('Bạn đọc').click();
+        await page.getByRole('link', { name: 'Học sinh' }).click();
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/admin/studentManager');
+        await page.getByRole('row', { name: '9 HS00018 Nguyễn Minh Nam nguyenbnam@gmail.com 0363178823 20/10/2000 Nam 2022 - 2025 Đang hoạt động 09/10/2023 09/04/2024 Sửa Xóa' }).getByRole('button').nth(1).click();
+        await page.getByRole('tooltip').getByRole('button', { name: 'Xóa' }).click();
+        await expect(page.getByText('Xoá dữ liệu thành công!')).toBeVisible();
+
+    });
+}
 // import fs from 'fs';
 // import path from 'path';
 // import { } from '@playwright/test';
@@ -151,7 +200,9 @@ function main() {
     beforeEach();
     addStudent();
     addSquickly();
-
+    addSnoname();
+    editStudent();
+    deleteStudent();
 
 }
 main();
