@@ -68,7 +68,7 @@ import path from 'path';
 import { } from '@playwright/test';
 import { parse } from 'csv-parse/sync';
 
-const records = parse(fs.readFileSync("tests/shared directory/Login/inputlogin.csv"),
+const records = parse(fs.readFileSync("QLTV/shared directory/Login/inputlogin.csv"),
   {
     columns: true,
     skip_empty_lines: true

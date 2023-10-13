@@ -1,4 +1,6 @@
 const { test, expect } = require('@playwright/test');
+import fs from 'fs';
+import path from 'path';
 function beforeEach() {
     test.beforeEach(async ({ page }) => {
         await page.goto('https://qa.qltv.mobiedu.vn/dang-nhap');
@@ -220,12 +222,6 @@ function editcardRFIDWarehousingInvalid() {
         await page.getByPlaceholder('- Điền giá tiền -').fill('100000');
         await page.getByRole('button', { name: 'Lưu' }).click();
         await expect(page.getByText('Sửa nhập kho thẻ RFID thành công!')).toBeVisible();
-        // await page.getByRole('spinbutton').first().click();
-        // await page.getByRole('spinbutton').first().fill('2');
-        // await page.getByText('Danh sách thẻ (6) *').click();
-        // await page.getByRole('row', { name: '6 HD123456 mua mới 5 nguyễn vân anh 02/10/2023 edit close-circle' }).getByRole('link').click();
-        // await page.getByText('Danh sách thẻ (6) *').click();
-        // await page.getByRole('row', { name: '5 T005 Chưa gán chủ thẻ check-circle close-circle' }).locator('svg').nth(1).click();
     })
 }
 function deletecardRFIDWarehousingInvalid() {
@@ -242,6 +238,46 @@ function deletecardRFIDWarehousingInvalid() {
     })
 }
 
+function exportcardRFIDWarehousing() {
+
+    test('export cardRFIDWarehousing', async ({ page }) => {
+        await page.getByRole('menu').getByText('Quản lý RFID').click();
+        await page.getByRole('link', { name: 'Nhập kho thẻ RFID' }).click();
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/admin/cardRFIDWarehousing');
+        //Click exxport file
+        const downloadPromise = page.waitForEvent('download');
+        await page.locator('.ant-table-row > td').first().click();
+        await page.locator('tr:nth-child(3) > td').first().click();
+        await page.getByText('Xuất file').click();
+        const download = await downloadPromise;
+        const suggestedFileName = download.suggestedFilename()
+        const filePath = 'c:/Users/Admin/Downloads/QLTV_exportfile/' + "exportcardRFIDWarehousing" + suggestedFileName;
+        await download.saveAs(filePath)
+        console.log('Tên file path:', filePath);
+        expect(fs.existsSync(filePath)).toBeTruthy()
+
+    })
+}
+function exportallcardRFIDWarehousing() {
+
+    test('export all cardRFIDWarehousing', async ({ page }) => {
+        await page.getByRole('menu').getByText('Quản lý RFID').click();
+        await page.getByRole('link', { name: 'Nhập kho thẻ RFID', exact: true }).click();
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/admin/cardRFIDWarehousing');
+        //Click exxport file
+        const downloadPromise = page.waitForEvent('download');
+        await page.getByText('Xuất tất cả').click();
+        const download = await downloadPromise;
+        const suggestedFileName = download.suggestedFilename()
+        const filePath = 'c:/Users/Admin/Downloads/QLTV_exportfile/' + "exportallcardRFIDWarehousing" + suggestedFileName;
+        await download.saveAs(filePath)
+        console.log('Tên file path:', filePath);
+        expect(fs.existsSync(filePath)).toBeTruthy()
+    })
+}
+
+
+
 function main() {
     beforeEach();
     addcardRFIDWarehousing();
@@ -252,6 +288,8 @@ function main() {
     addcardRFIDWarehousingInvalid();
     editcardRFIDWarehousingInvalid();
     deletecardRFIDWarehousingInvalid();
+    exportcardRFIDWarehousing();
+    exportallcardRFIDWarehousing();
 
 }
 main()
