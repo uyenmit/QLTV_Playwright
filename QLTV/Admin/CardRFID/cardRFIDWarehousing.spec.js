@@ -19,7 +19,7 @@ function addcardRFIDWarehousing() {
         await page.getByRole('button', { name: 'plus-circle Thêm' }).click();
         await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/admin/cardRFIDWarehousing/addCard');
         await page.getByPlaceholder('- Nhập mã hóa đơn -').click();
-        await page.getByPlaceholder('- Nhập mã hóa đơn -').fill('HD000001');
+        await page.getByPlaceholder('- Nhập mã hóa đơn -').fill('HD100001');
         await page.getByLabel('Đơn vị cung cấp').click();
         await page.getByText('Đại lý sách Văn Minh').click();
         await page.getByLabel('Loại thẻ').click();
@@ -56,7 +56,7 @@ function addcardRFIDWarehousingFailed() {
         await page.getByRole('button', { name: 'plus-circle Thêm' }).click();
         await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/admin/cardRFIDWarehousing/addCard');
         await page.getByPlaceholder('- Nhập mã hóa đơn -').click();
-        await page.getByPlaceholder('- Nhập mã hóa đơn -').fill('HD000001');
+        await page.getByPlaceholder('- Nhập mã hóa đơn -').fill('HD010001');
         await page.getByLabel('Đơn vị cung cấp').click();
         await page.getByText('Đại lý sách Văn Minh').click();
         await page.getByLabel('Loại thẻ').click();
@@ -65,13 +65,13 @@ function addcardRFIDWarehousingFailed() {
         await page.getByRole('spinbutton').first().fill('3');
         await page.getByText('Danh sách thẻ (0) *').click();
         await page.getByPlaceholder('ID thẻ RFID').click();
-        await page.getByPlaceholder('ID thẻ RFID').fill('0010');
+        await page.getByPlaceholder('ID thẻ RFID').fill('0110');
         await page.getByRole('button', { name: 'plus-circle Thêm' }).click();
         await page.getByPlaceholder('ID thẻ RFID').click();
-        await page.getByPlaceholder('ID thẻ RFID').fill('0019');
+        await page.getByPlaceholder('ID thẻ RFID').fill('0029');
         await page.getByRole('button', { name: 'plus-circle Thêm' }).click();
         await page.getByPlaceholder('ID thẻ RFID').click();
-        await page.getByPlaceholder('ID thẻ RFID').fill('0018');
+        await page.getByPlaceholder('ID thẻ RFID').fill('0028');
         await page.getByRole('button', { name: 'plus-circle Thêm' }).click();
         await page.getByLabel('Select all').check();
         await page.getByRole('button', { name: 'check-square Kiểm tra' }).click();

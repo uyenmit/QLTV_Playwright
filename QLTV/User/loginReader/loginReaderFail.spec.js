@@ -31,13 +31,14 @@ function loginInvalidName() {
 
     test('login Invalid Name', async ({ page }) => {
         await page.getByRole('button', { name: 'ĐĂNG NHẬP' }).click();
-        await page.getByPlaceholder('Tài khoản').fill('tranaxuan@gcom');
+        await page.getByPlaceholder('Tài khoản').fill('  !tranaxuan@gcom  ');
         await page.getByPlaceholder('Mật khẩu').fill('inet@123');
         await page.getByRole('button', { name: 'ĐĂNG NHẬP' }).click();
         await expect(page.getByText('Tài khoản không tồn tại')).toBeVisible();
 
     })
 }
+
 function main() {
     beforeEach();
     loginInvalid();

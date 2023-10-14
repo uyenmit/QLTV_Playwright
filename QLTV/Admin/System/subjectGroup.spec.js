@@ -1,9 +1,6 @@
-//@ts-check
 const { test, expect } = require('@playwright/test');
 function beforeEach() {
-    // Khởi tạo trình duyệt trước khi chạy mỗi test case
     test.beforeEach(async ({ page }) => {
-        // Mở trình duyệt và điều hướng đến trang mobiedu.vn
         await page.goto('https://qa.qltv.mobiedu.vn/dang-nhap');
         await page.getByPlaceholder('Tài khoản').fill('anhnv1@inet.vn');
         await page.getByPlaceholder('Mật khẩu').fill('iNet@123');

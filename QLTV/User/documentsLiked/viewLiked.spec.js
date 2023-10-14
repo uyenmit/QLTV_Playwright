@@ -1,0 +1,22 @@
+const { test, expect } = require('@playwright/test');
+function viewDocumentsLiked() {
+
+    test('view DocumentsSeen', async ({ page }) => {
+        await page.goto('https://qa.qltv.mobiedu.vn/');
+        await expect(page).toHaveTitle(/mobiEdu QLTV/);
+        await page.getByRole('button', { name: "Đăng nhập" }).click();
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/dang-nhap');
+        await page.getByPlaceholder('Tài khoản').fill('trannam@gmail.com');
+        await page.getByPlaceholder('Mật khẩu').fill('iNet@123');
+        await page.getByRole('button', { name: 'ĐĂNG NHẬP' }).click();
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/home');
+        await page.getByRole('link', { name: 'user Trần Uyên Phương' }).click();
+        await page.getByRole('link', { name: 'Tài liệu đã thích' }).click();
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/user/documentsLiked');
+        await page.getByRole('row', { name: '6 Doc_3 Megan Miranda close-circle' }).getByLabel('', { exact: true }).click();
+        await page.getByRole('button', { name: 'eye Xem' }).click();
+        await expect(page).toHaveURL('https://qa.qltv.mobiedu.vn/user/searchPublication/publication?id=657');
+
+    })
+}
+viewDocumentsLiked();
